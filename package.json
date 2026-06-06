@@ -1,0 +1,14 @@
+{
+  "name": "nps-hub",
+  "version": "1.0.0",
+  "description": "Media Pembelajaran Statistika Non-Parametrik",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
+  }
+}

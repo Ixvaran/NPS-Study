@@ -1,0 +1,1457 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NPS Hub — Media Belajar Statistika Non-Parametrik</title>
+    
+    <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+    
+    <!-- KaTeX for beautiful LaTeX math rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+    
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Application Logic -->
+    <script defer src="app.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="logo-icon">📊</div>
+                <div class="brand-text">
+                    <h1>NPS Hub</h1>
+                    <span>Statistika Non-Parametrik</span>
+                </div>
+            </div>
+            
+            <nav class="nav-menu">
+                <a href="#" class="nav-item active" data-tab="dashboard">
+                    <span class="icon">🏠</span>
+                    <span class="label">Dashboard</span>
+                </a>
+                
+                <div class="nav-section-title">Modul Pembelajaran</div>
+                
+                <a href="#" class="nav-item" data-tab="kruskal-wallis">
+                    <span class="icon">🟢</span>
+                    <span class="label">Kruskal-Wallis & Post-Hoc</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="mcnemar">
+                    <span class="icon">🔵</span>
+                    <span class="label">Uji McNemar</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="cochran">
+                    <span class="icon">🟣</span>
+                    <span class="label">Uji Cochran Q</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="friedman">
+                    <span class="icon">🟡</span>
+                    <span class="label">Uji Friedman & Post-Hoc</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="durbin">
+                    <span class="icon">🔴</span>
+                    <span class="label">Uji Durbin (BIBD)</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="kolmogorov-cramer">
+                    <span class="icon">🟠</span>
+                    <span class="label">KS & Cramer Von Mises</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="korelasi">
+                    <span class="icon">🔗</span>
+                    <span class="label">Koefisien Korelasi</span>
+                </a>
+                
+                <div class="nav-section-title">Kebutuhan Ujian</div>
+                <a href="#" class="nav-item" data-tab="uas-bank">
+                    <span class="icon">📝</span>
+                    <span class="label">Bank Soal & Cheat Sheet</span>
+                </a>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="user-status">
+                    <div class="status-indicator online"></div>
+                    <span class="status-text">Persiapan UAS 2026</span>
+                </div>
+            </div>
+        </aside>
+        
+        <!-- Main Content Area -->
+        <main class="main-content">
+            
+            <!-- Top Header Bar -->
+            <header class="top-header">
+                <div class="header-title">
+                    <h2 id="current-tab-title">Dashboard</h2>
+                    <p id="current-tab-desc">Selamat datang di pusat pembelajaran interaktif Statistika Non-Parametrik.</p>
+                </div>
+                <div class="header-actions" style="display: flex; align-items: center; gap: 12px;">
+                    <button id="theme-toggle" class="btn btn-secondary btn-sm" style="display: flex; align-items: center; gap: 6px; padding: 8px 12px; border-radius: 10px;">
+                        <span class="theme-icon">☀️</span>
+                        <span class="theme-text">Light Mode</span>
+                    </button>
+                    <div class="countdown-card">
+                        <span class="countdown-label">Menuju UAS:</span>
+                        <span class="countdown-timer" id="countdown">Loading...</span>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Dynamic Content Tabs -->
+            <div class="content-body">
+                
+                <!-- TAB 1: DASHBOARD -->
+                <section id="tab-dashboard" class="tab-pane active">
+                    <div class="welcome-banner">
+                        <div class="welcome-text">
+                            <h3>Kuasai Statistika Non-Parametrik! 🚀</h3>
+                            <p>Website ini dirancang khusus untuk membantumu memahami konsep, rumus, perhitungan manual, dan pengerjaan soal ujian secara mendalam dan interaktif. Semua materi diselaraskan dengan modul kuliah terbaru.</p>
+                        </div>
+                        <div class="welcome-visual">💡</div>
+                    </div>
+                    
+                    <h3 class="section-title">Materi Utama Ujian</h3>
+                    <div class="grid-dashboard">
+                        <div class="dashboard-card" onclick="switchTab('kruskal-wallis')">
+                            <div class="card-icon kw-color">KW</div>
+                            <h4>Kruskal-Wallis & Post-Hoc</h4>
+                            <p>Uji komparatif k-sampel independen dengan koreksi Ties. Post-hoc dengan metode Dunn dan Conover-Iman (dengan & tanpa Bonferroni).</p>
+                            <span class="card-link">Mulai Belajar →</span>
+                        </div>
+                        
+                        <div class="dashboard-card" onclick="switchTab('mcnemar')">
+                            <div class="card-icon mc-color">MC</div>
+                            <h4>Uji McNemar</h4>
+                            <p>Menguji perbedaan proporsi berpasangan untuk data biner (2x2). Dilengkapi koreksi kontinuitas Yates untuk sampel kecil.</p>
+                            <span class="card-link">Mulai Belajar →</span>
+                        </div>
+                        
+                        <div class="dashboard-card" onclick="switchTab('cochran')">
+                            <div class="card-icon co-color">CQ</div>
+                            <h4>Uji Cochran Q</h4>
+                            <p>Perluasan uji McNemar untuk k-sampel berhubungan dengan respon biner (0/1). Digunakan untuk menganalisis perubahan/efektivitas perlakuan.</p>
+                            <span class="card-link">Mulai Belajar →</span>
+                        </div>
+                        
+                        <div class="dashboard-card" onclick="switchTab('friedman')">
+                            <div class="card-icon fr-color">FR</div>
+                            <h4>Uji Friedman</h4>
+                            <p>Uji komparatif k-sampel berhubungan skala ordinal (ANOVA 2-arah non-parametrik), lengkap dengan uji lanjut perbedaan peringkat.</p>
+                            <span class="card-link">Mulai Belajar →</span>
+                        </div>
+                        
+                        <div class="dashboard-card" onclick="switchTab('durbin')">
+                            <div class="card-icon du-color">DU</div>
+                            <h4>Uji Durbin (BIBD)</h4>
+                            <p>Uji komparatif blok tidak lengkap seimbang (Balanced Incomplete Block Design) ketika kapasitas blok terbatas (k &lt; t).</p>
+                            <span class="card-link">Mulai Belajar →</span>
+                        </div>
+                        
+                        <div class="dashboard-card" onclick="switchTab('kolmogorov-cramer')">
+                            <div class="card-icon kc-color">KS</div>
+                            <h4>KS & Cramer-von Mises</h4>
+                            <p>Uji keselarasan distribusi (goodness-of-fit). Kolmogorov-Smirnov (maksimum deviasi) dan Cramer-von Mises (rata-rata kuadrat deviasi).</p>
+                            <span class="card-link">Mulai Belajar →</span>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-row-2">
+                        <div class="dashboard-info-box">
+                            <h4>Mengapa Belajar di Sini Berbeda?</h4>
+                            <ul>
+                                <li><strong>Langkah Pengerjaan Konsisten:</strong> Setiap uji dibedah dari Hipotesis, Taraf Signifikansi, Statistik Uji, Daerah Kritis, Pengolahan Data, Keputusan hingga Kesimpulan.</li>
+                                <li><strong>Kalkulator Interaktif:</strong> Masukkan data sesukamu, dan lihat bagaimana rumus menghitung langkah demi langkah secara mendetail, bukan cuma hasil akhir!</li>
+                                <li><strong>Visualisasi Eksploratif:</strong> Plot interaktif SVG untuk memvisualisasikan data, deviasi Kolmogorov, dan jaringan perbedaan post-hoc.</li>
+                                <li><strong>Kode R & Python Terintegrasi:</strong> Siap digunakan untuk pengerjaan proyek komputasi statistika.</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="dashboard-shortcut-box">
+                            <h4>Bank Soal UAS Terakhir</h4>
+                            <p>Cobalah pengerjaan soal ujian tahun lalu langsung dengan data yang sudah di-load secara otomatis.</p>
+                            <button class="btn btn-primary" onclick="switchTab('uas-bank')">Buka Bank Soal UAS →</button>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- TAB 2: KRUSKAL-WALLIS -->
+                <section id="tab-kruskal-wallis" class="tab-pane">
+                    <div class="tab-nav-sub">
+                        <button class="sub-tab-btn active" data-subtab="kw-teori">Teori & Konsep</button>
+                        <button class="sub-tab-btn" data-subtab="kw-kalkulator">Kalkulator Interaktif</button>
+                        <button class="sub-tab-btn" data-subtab="kw-code">Kode R & Python</button>
+                    </div>
+                    
+                    <!-- Subtab Teori -->
+                    <div id="subtab-kw-teori" class="subtab-content active">
+                        <div class="card">
+                            <h3>Pengantar Uji Kruskal-Wallis</h3>
+                            <p>Uji Kruskal-Wallis merupakan alternatif non-parametrik untuk ANOVA satu arah (One-Way ANOVA) ketika asumsi normalitas data tidak terpenuhi. Uji ini membandingkan median dari tiga atau lebih kelompok independen.</p>
+                            
+                            <h4>Asumsi Uji:</h4>
+                            <ol>
+                                <li>Data terdiri dari $k$ sampel acak independen dengan ukuran sampel masing-masing $n_1, n_2, \dots, n_k$.</li>
+                                <li>Variabel dependen diukur minimal pada skala ordinal (kontinu lebih disukai).</li>
+                                <li>Distribusi populasi di bawah hipotesis nol adalah identik.</li>
+                            </ol>
+                            
+                            <h4>Hipotesis:</h4>
+                            <p>$$H_0: M_1 = M_2 = \dots = M_k \text{ (Semua populasi memiliki lokasi median yang sama)}$$</p>
+                            <p>$$H_1: \text{Minimal ada satu kelompok yang memiliki lokasi median berbeda}$$</p>
+                            
+                            <h4>Statistik Uji:</h4>
+                            <p>Rumus uncorrected (tanpa ties):</p>
+                            <p>$$H = \frac{12}{N(N+1)} \sum_{j=1}^k \frac{R_j^2}{n_j} - 3(N+1)$$</p>
+                            <p>Dimana $R_j$ adalah jumlah peringkat kelompok ke-$j$, $n_j$ adalah ukuran sampel kelompok ke-$j$, dan $N = \sum n_j$ adalah total semua observasi.</p>
+                            
+                            <h4>Koreksi adanya Ties (Angka Kembar):</h4>
+                            <p>Koreksi Ties penting karena jika terdapat angka kembar, standard error akan cenderung terlalu besar, membuat nilai uji statistik mengecil. Koreksi dilakukan dengan membagi $H$ dengan faktor koreksi $C$:</p>
+                            <p>$$C = 1 - \frac{\sum (t_i^3 - t_i)}{N^3 - N}$$</p>
+                            <p>$$H_c = \frac{H}{C}$$</p>
+                            <p>Dimana $t_i$ adalah jumlah data yang kembar pada kelompok ke-$i$.</p>
+                            
+                            <h4>Kaidah Keputusan:</h4>
+                            <p>Tolak $H_0$ jika $H_c \ge \chi^2_{(1-\alpha, k-1)}$.</p>
+                            
+                            <hr>
+                            
+                            <h3>Uji Lanjut (Post-Hoc Tests)</h3>
+                            <p>Jika uji Kruskal-Wallis menghasilkan keputusan Tolak $H_0$, maka dilanjutkan dengan membandingkan pasangan kelompok untuk melihat pasangan mana yang berbeda signifikan.</p>
+                            
+                            <div class="grid-2col">
+                                <div class="glass-box">
+                                    <h5>1. Uji Dunn (Dunn's Test)</h5>
+                                    <p>Menggunakan distribusi normal standar $Z$.</p>
+                                    <p>$$SE_{ij} = \sqrt{\left[ \frac{N(N+1)}{12} - \frac{\sum(t_i^3-t_i)}{12(N-1)} \right] \left(\frac{1}{n_i} + \frac{1}{n_j}\right)}$$</p>
+                                    <p>$$Z_{ij} = \frac{|\bar{R}_i - \bar{R}_j|}{SE_{ij}}$$</p>
+                                    <p>Dimana $\bar{R}_i = R_i / n_i$.</p>
+                                </div>
+                                <div class="glass-box">
+                                    <h5>2. Uji Conover-Iman</h5>
+                                    <p>Uji pasca-analisis varians peringkat yang lebih sensitif (berdasarkan distribusi t-Student dengan $df = N - k$).</p>
+                                    <p>$$s^2 = \frac{1}{N-1} \left[ \sum R_{ij}^2 - \frac{N(N+1)^2}{4} \right]$$</p>
+                                    <p>$$SE_{ij} = \sqrt{ s^2 \left( \frac{N-1-H_c}{N-k} \right) \left( \frac{1}{n_i} + \frac{1}{n_j} \right) }$$</p>
+                                    <p>$$t_{ij} = \frac{|\bar{R}_i - \bar{R}_j|}{SE_{ij}}$$</p>
+                                </div>
+                            </div>
+                            
+                            <p style="margin-top: 15px;"><strong>Koreksi Bonferroni:</strong> Jika melakukan $m = \frac{k(k-1)}{2}$ perbandingan berpasangan, taraf signifikansi disesuaikan menjadi $\alpha' = \alpha / m$ untuk mengontrol tingkat kesalahan tipe I.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Subtab Kalkulator -->
+                    <div id="subtab-kw-kalkulator" class="subtab-content">
+                        <div class="card">
+                            <h3>Kalkulator Kruskal-Wallis & Post-Hoc</h3>
+                            <p class="help-text">Masukkan data untuk masing-masing kelompok dipisahkan dengan koma (contoh: 83, 91, 94, 89, 89). Klik "Tambah Kelompok" jika ingin membandingkan lebih banyak kelompok.</p>
+                            
+                            <div id="kw-input-container" class="inputs-grid-vertical">
+                                <div class="group-input-row" data-group="1">
+                                    <span class="group-badge">Kelompok 1 (I)</span>
+                                    <input type="text" class="kw-data-input form-control" value="83, 91, 94, 89, 89, 96, 91, 92, 90" placeholder="Ketik data dipisah koma...">
+                                    <button class="btn-remove-row" onclick="removeKWGroup(this)">✕</button>
+                                </div>
+                                <div class="group-input-row" data-group="2">
+                                    <span class="group-badge">Kelompok 2 (II)</span>
+                                    <input type="text" class="kw-data-input form-control" value="91, 90, 81, 83, 84, 83, 88, 91, 89, 84" placeholder="Ketik data dipisah koma...">
+                                    <button class="btn-remove-row" onclick="removeKWGroup(this)">✕</button>
+                                </div>
+                                <div class="group-input-row" data-group="3">
+                                    <span class="group-badge">Kelompok 3 (III)</span>
+                                    <input type="text" class="kw-data-input form-control" value="101, 100, 91, 93, 96, 95, 94" placeholder="Ketik data dipisah koma...">
+                                    <button class="btn-remove-row" onclick="removeKWGroup(this)">✕</button>
+                                </div>
+                                <div class="group-input-row" data-group="4">
+                                    <span class="group-badge">Kelompok 4 (IV)</span>
+                                    <input type="text" class="kw-data-input form-control" value="78, 82, 81, 77, 79, 81, 80, 81" placeholder="Ketik data dipisah koma...">
+                                    <button class="btn-remove-row" onclick="removeKWGroup(this)">✕</button>
+                                </div>
+                            </div>
+                            
+                            <div class="calc-actions">
+                                <button class="btn btn-secondary" onclick="addKWGroup()">＋ Tambah Kelompok</button>
+                                <div class="select-wrapper">
+                                    <label for="kw-alpha">Taraf Signifikansi (α):</label>
+                                    <select id="kw-alpha" class="form-control-sm">
+                                        <option value="0.01">1% (0.01)</option>
+                                        <option value="0.05" selected>5% (0.05)</option>
+                                        <option value="0.10">10% (0.10)</option>
+                                    </select>
+                                </div>
+                                <button class="btn btn-primary" onclick="calculateKruskalWallis()">Hitung Uji KW</button>
+                            </div>
+                            
+                            <!-- Kalkulator Output -->
+                            <div id="kw-output-section" class="output-container hidden">
+                                <h4 class="output-title">Hasil Analisis & Rincian Perhitungan</h4>
+                                
+                                <div class="calculation-steps">
+                                    <!-- Dinamis diisi oleh JS -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Subtab Code -->
+                    <div id="subtab-kw-code" class="subtab-content">
+                        <div class="card">
+                            <h3>Implementasi Kode Program</h3>
+                            <p>Berikut adalah cara menjalankan uji Kruskal-Wallis beserta uji lanjut Dunn dan Conover-Iman menggunakan R dan Python.</p>
+                            
+                            <div class="tab-code-container">
+                                <div class="code-header">
+                                    <span class="lang-label">Bahasa R</span>
+                                </div>
+                                <pre><code># 1. Masukkan data
+I  &lt;- c(83, 91, 94, 89, 89, 96, 91, 92, 90)
+II &lt;- c(91, 90, 81, 83, 84, 83, 88, 91, 89, 84)
+III &lt;- c(101, 100, 91, 93, 96, 95, 94)
+IV &lt;- c(78, 82, 81, 77, 79, 81, 80, 81)
+
+# Buat data frame (format panjang)
+nilai &lt;- c(I, II, III, IV)
+metode &lt;- factor(c(rep("I", length(I)), rep("II", length(II)), rep("III", length(III)), rep("IV", length(IV))))
+data_jagung &lt;- data.frame(nilai, metode)
+
+# 2. Uji Kruskal-Wallis
+kruskal.test(nilai ~ metode, data = data_jagung)
+
+# 3. Uji Lanjut (memerlukan package PMCMRplus)
+install.packages("PMCMRplus")
+library(PMCMRplus)
+
+# Dunn Test (dengan penyesuaian p-value Bonferroni)
+kwAllPairsDunnTest(nilai ~ metode, data = data_jagung, p.adjust.method = "bonferroni")
+
+# Conover-Iman Test (dengan penyesuaian p-value Bonferroni)
+kwAllPairsConoverTest(nilai ~ metode, data = data_jagung, p.adjust.method = "bonferroni")</code></pre>
+                            </div>
+                            
+                            <div class="tab-code-container" style="margin-top: 20px;">
+                                <div class="code-header">
+                                    <span class="lang-label">Python (scipy & scikit-posthocs)</span>
+                                </div>
+                                <pre><code>import scipy.stats as stats
+import scikit_posthocs as sp
+
+# 1. Masukkan data
+g1 = [83, 91, 94, 89, 89, 96, 91, 92, 90]
+g2 = [91, 90, 81, 83, 84, 83, 88, 91, 89, 84]
+g3 = [101, 100, 91, 93, 96, 95, 94]
+g4 = [78, 82, 81, 77, 79, 81, 80, 81]
+
+# 2. Uji Kruskal-Wallis
+h_stat, p_val = stats.kruskal(g1, g2, g3, g4)
+print(f"H-statistic: {h_stat:.4f}, p-value: {p_val:.4f}")
+
+# 3. Uji Lanjut Dunn & Conover-Iman
+data = [g1, g2, g3, g4]
+
+# Dunn's Post-Hoc
+dunn_matrix = sp.posthoc_dunn(data, p_adjust='bonferroni')
+print("Dunn Matrix p-values:\n", dunn_matrix)
+
+# Conover-Iman Post-Hoc
+conover_matrix = sp.posthoc_conover(data, p_adjust='bonferroni')
+print("Conover-Iman Matrix p-values:\n", conover_matrix)</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- TAB 3: MCNEMAR -->
+                <section id="tab-mcnemar" class="tab-pane">
+                    <div class="tab-nav-sub">
+                        <button class="sub-tab-btn active" data-subtab="mn-teori">Teori & Konsep</button>
+                        <button class="sub-tab-btn" data-subtab="mn-kalkulator">Kalkulator Interaktif</button>
+                        <button class="sub-tab-btn" data-subtab="mn-code">Kode R & Python</button>
+                    </div>
+                    
+                    <!-- Subtab Teori -->
+                    <div id="subtab-mn-teori" class="subtab-content active">
+                        <div class="card">
+                            <h3>Pengantar Uji McNemar</h3>
+                            <p>Uji McNemar adalah uji non-parametrik yang digunakan pada data berpasangan (paired data) berskala nominal/kategori dikotomus (biner: Ya/Tidak, Sukses/Gagal, Sebelum/Sesudah). Fokus uji ini adalah mendeteksi adanya perubahan akibat suatu perlakuan.</p>
+                            
+                            <h4>Tabel Kontingensi 2x2:</h4>
+                            <div style="max-width: 400px; margin: 15px auto;">
+                                <table class="table-calc">
+                                    <thead>
+                                        <tr>
+                                            <th>Sebelum \ Sesudah</th>
+                                            <th>Ya (1)</th>
+                                            <th>Tidak (0)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th>Ya (1)</th>
+                                            <td style="text-align: center;">$a$ (Sama)</td>
+                                            <td style="text-align: center; background: rgba(59, 130, 246, 0.15); font-weight: bold; border: 1px solid #3b82f6;">$b$ (Berubah)</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Tidak (0)</th>
+                                            <td style="text-align: center; background: rgba(59, 130, 246, 0.15); font-weight: bold; border: 1px solid #3b82f6;">$c$ (Berubah)</td>
+                                            <td style="text-align: center;">$d$ (Sama)</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <p>Sel $b$ dan $c$ disebut sel <strong>diskoran (discordant cells)</strong> karena mewakili subjek yang mengalami perubahan pilihan. Sel $a$ dan $d$ adalah sel <strong>konkoran (concordant cells)</strong> yang tidak menunjukkan perubahan.</p>
+                            
+                            <h4>Hipotesis (Dua Sisi):</h4>
+                            <p>$$H_0: P_b = P_c \text{ atau } P_1 = P_2 \text{ (Tidak ada perubahan proporsi / perlakuan tidak efektif)}$$</p>
+                            <p>$$H_1: P_b \neq P_c \text{ atau } P_1 \neq P_2 \text{ (Terdapat perubahan proporsi / perlakuan efektif)}$$</p>
+                            
+                            <h4>Statistik Uji:</h4>
+                            <ul>
+                                <li><strong>Sampel Besar ($b + c > 25$):</strong> Menggunakan pendekatan distribusi Chi-Square dengan $df = 1$.
+                                    <p>Tanpa koreksi kontinuitas:</p>
+                                    <p>$$T_1 = \frac{(b - c)^2}{b + c}$$</p>
+                                    <p>Dengan Koreksi Yates (untuk mengkompensasi pendekatan kontinu pada data diskrit):</p>
+                                    <p>$$T_{corr} = \frac{(|b - c| - 1)^2}{b + c}$$</p>
+                                </li>
+                                <li><strong>Sampel Kecil ($b + c \le 25$):</strong> Menggunakan pengujian eksak berbasis distribusi Binomial dengan $n = b+c$ dan $p = 0.5$.
+                                    <p>$$T_2 = b \quad (\text{dimana } b \sim \text{Binomial}(b+c, 0.5))$$</p>
+                                </li>
+                            </ul>
+                            
+                            <h4>Kaidah Keputusan:</h4>
+                            <p>Tolak $H_0$ jika $T_{hitung} \ge \chi^2_{(1-\alpha, 1)}$ (untuk sampel besar, $\chi^2_{0.95, 1} = 3.841$).</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Subtab Kalkulator -->
+                    <div id="subtab-mn-kalkulator" class="subtab-content">
+                        <div class="card">
+                            <h3>Kalkulator Uji McNemar</h3>
+                            <p class="help-text">Masukkan frekuensi pengamatan pada sel-sel kontingensi 2x2 berikut. Klik "Contoh Sakit Kepala" untuk melihat contoh kasus tablet Ergotamine vs Placebo.</p>
+                            
+                            <div class="grid-2col" style="gap: 30px; align-items: start;">
+                                <div class="glass-box">
+                                    <h5 style="text-align: center; margin-bottom: 15px;">Matriks Kontingensi</h5>
+                                    
+                                    <div class="mcnemar-matrix-container">
+                                        <div class="matrix-cell label-cell"></div>
+                                        <div class="matrix-cell label-cell">Sesudah: YA</div>
+                                        <div class="matrix-cell label-cell">Sesudah: TIDAK</div>
+                                        
+                                        <div class="matrix-cell label-cell">Sebelum: YA</div>
+                                        <div class="matrix-cell input-cell">
+                                            <input type="number" id="mn-cell-a" class="form-control matrix-input" value="22" min="0">
+                                            <span class="cell-sub">a</span>
+                                        </div>
+                                        <div class="matrix-cell input-cell diskoran-cell">
+                                            <input type="number" id="mn-cell-b" class="form-control matrix-input" value="24" min="0">
+                                            <span class="cell-sub">b</span>
+                                        </div>
+                                        
+                                        <div class="matrix-cell label-cell">Sebelum: TIDAK</div>
+                                        <div class="matrix-cell input-cell diskoran-cell">
+                                            <input type="number" id="mn-cell-c" class="form-control matrix-input" value="18" min="0">
+                                            <span class="cell-sub">c</span>
+                                        </div>
+                                        <div class="matrix-cell input-cell">
+                                            <input type="number" id="mn-cell-d" class="form-control matrix-input" value="15" min="0">
+                                            <span class="cell-sub">d</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <div class="select-wrapper" style="margin-bottom: 15px;">
+                                        <label for="mn-alpha">Taraf Signifikansi (α):</label>
+                                        <select id="mn-alpha" class="form-control">
+                                            <option value="0.01">1% (0.01)</option>
+                                            <option value="0.05" selected>5% (0.05)</option>
+                                            <option value="0.10">10% (0.10)</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div style="display: flex; gap: 10px;">
+                                        <button class="btn btn-primary" style="flex: 1;" onclick="calculateMcNemar()">Hitung Uji McNemar</button>
+                                        <button class="btn btn-secondary" onclick="loadMcNemarExample()">Load Contoh UAS</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div id="mn-output-section" class="output-container hidden" style="margin-top: 30px;">
+                                <h4 class="output-title">Hasil Uji McNemar</h4>
+                                <div class="calculation-steps">
+                                    <!-- Dinamis diisi oleh JS -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Subtab Code -->
+                    <div id="subtab-mn-code" class="subtab-content">
+                        <div class="card">
+                            <h3>Implementasi Kode Program</h3>
+                            
+                            <div class="tab-code-container">
+                                <div class="code-header">
+                                    <span class="lang-label">Bahasa R</span>
+                                </div>
+                                <pre><code># 1. Susun matriks kontingensi 2x2
+data_migrain &lt;- matrix(c(22, 24, 
+                         18, 15), 
+                       nrow = 2, 
+                       byrow = TRUE)
+colnames(data_migrain) &lt;- c("Sesudah_Ya", "Sesudah_Tidak")
+rownames(data_migrain) &lt;- c("Sebelum_Ya", "Sebelum_Tidak")
+
+# 2. Uji McNemar dengan koreksi kontinuitas Yates (default)
+mcnemar.test(data_migrain)
+
+# 3. Uji McNemar tanpa koreksi kontinuitas
+mcnemar.test(data_migrain, correct = FALSE)</code></pre>
+                            </div>
+                            
+                            <div class="tab-code-container" style="margin-top: 20px;">
+                                <div class="code-header">
+                                    <span class="lang-label">Python (statsmodels)</span>
+                                </div>
+                                <pre><code>from statsmodels.stats.contingency_tables import mcnemar
+
+# 1. Matriks kontingensi
+table = [[22, 24],
+         [18, 15]]
+
+# 2. Uji McNemar dengan koreksi Yates (default)
+result_with_correction = mcnemar(table, exact=False, correction=True)
+print(f"Chi2 (Yates): {result_with_correction.statistic:.4f}, p-value: {result_with_correction.pvalue:.4f}")
+
+# 3. Uji McNemar eksak (binomial, jika b+c &lt;= 25)
+result_exact = mcnemar(table, exact=True)
+print(f"p-value (Exact): {result_exact.pvalue:.4f}")</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- TAB 4: COCHRAN Q -->
+                <section id="tab-cochran" class="tab-pane">
+                    <div class="tab-nav-sub">
+                        <button class="sub-tab-btn active" data-subtab="co-teori">Teori & Konsep</button>
+                        <button class="sub-tab-btn" data-subtab="co-kalkulator">Kalkulator Interaktif</button>
+                        <button class="sub-tab-btn" data-subtab="co-code">Kode R & Python</button>
+                    </div>
+                    
+                    <!-- Subtab Teori -->
+                    <div id="subtab-co-teori" class="subtab-content active">
+                        <div class="card">
+                            <h3>Pengantar Uji Cochran Q</h3>
+                            <p>Uji Cochran Q merupakan perluasan dari uji McNemar untuk membandingkan 3 atau lebih kondisi/perlakuan berhubungan ($k > 2$) pada subjek/blok yang sama. Data respon harus berskala biner ($0$ atau $1$). Uji ini fokus pada mendeteksi perubahan proporsi sukses di antara perlakuan.</p>
+                            
+                            <h4>Asumsi Uji:</h4>
+                            <ol>
+                                <li>Subjek dipilih secara acak dari suatu populasi (blok acak).</li>
+                                <li>Setiap subjek diukur berulang kali di bawah kondisi yang berbeda (pengamatan berkorelasi).</li>
+                                <li>Skala pengukuran adalah nominal dikotomus (biner, e.g., $0 = \text{gagal}$, $1 = \text{sukses}$).</li>
+                            </ol>
+                            
+                            <h4>Hipotesis:</h4>
+                            <p>$$H_0: P_1 = P_2 = \dots = P_c \text{ (Semua perlakuan memiliki proporsi sukses yang sama/sama-sama efektif)}$$</p>
+                            <p>$$H_1: \text{Minimal terdapat satu perlakuan yang memiliki proporsi sukses berbeda}$$</p>
+                            
+                            <h4>Statistik Uji:</h4>
+                            <p>$$Q = \frac{c(c-1) \sum_{j=1}^c C_j^2 - (c-1) N^2}{c N - \sum_{i=1}^r R_i^2}$$</p>
+                            <p>Dimana:</p>
+                            <ul>
+                                <li>$c$: Jumlah perlakuan/kolom</li>
+                                <li>$r$: Jumlah blok/subjek/baris</li>
+                                <li>$C_j$: Total nilai $1$ pada kolom (perlakuan) ke-$j$</li>
+                                <li>$R_i$: Total nilai $1$ pada baris (blok) ke-$i$</li>
+                                <li>$N$: Total keseluruhan nilai $1$ dalam tabel ($N = \sum C_j = \sum R_i$)</li>
+                            </ul>
+                            
+                            <h4>Kaidah Keputusan:</h4>
+                            <p>Tolak $H_0$ jika $Q \ge \chi^2_{(1-\alpha, c-1)}$.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Subtab Kalkulator -->
+                    <div id="subtab-co-kalkulator" class="subtab-content">
+                        <div class="card">
+                            <h3>Kalkulator Uji Cochran Q</h3>
+                            <p class="help-text">Masukkan data biner (0 atau 1) untuk setiap perlakuan. Klik tombol "Load Contoh UAS 2" untuk melihat data penilaian 12 mahasiswa terhadap 3 dosen (soal sulit=1, mudah=0).</p>
+                            
+                            <div class="table-editor-container">
+                                <div class="table-controls">
+                                    <button class="btn btn-secondary btn-sm" onclick="addCochranRow()">＋ Tambah Baris (Blok)</button>
+                                    <button class="btn btn-secondary btn-sm" onclick="addCochranCol()">＋ Tambah Kolom (Perlakuan)</button>
+                                    <button class="btn btn-secondary btn-sm" onclick="removeCochranCol()">－ Hapus Kolom</button>
+                                    <button class="btn btn-secondary btn-sm" onclick="removeCochranRow()">－ Hapus Baris</button>
+                                    <button class="btn btn-secondary btn-sm" onclick="loadCochranExample1()">Contoh Pabrik Kain (4 Metode)</button>
+                                    <button class="btn btn-secondary btn-sm" onclick="loadCochranExample2()">Contoh Dosen UAS 2 (3 Dosen)</button>
+                                </div>
+                                
+                                <div class="scroll-x">
+                                    <table id="cochran-table" class="table-calc">
+                                        <thead>
+                                            <tr>
+                                                <th>Blok / Subjek</th>
+                                                <th>Perlakuan A</th>
+                                                <th>Perlakuan B</th>
+                                                <th>Perlakuan C</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Diisi oleh JS -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                                <div class="calc-actions" style="margin-top: 20px;">
+                                    <div class="select-wrapper">
+                                        <label for="co-alpha">Taraf Signifikansi (α):</label>
+                                        <select id="co-alpha" class="form-control-sm">
+                                            <option value="0.01">1% (0.01)</option>
+                                            <option value="0.05" selected>5% (0.05)</option>
+                                            <option value="0.10">10% (0.10)</option>
+                                        </select>
+                                    </div>
+                                    <button class="btn btn-primary" onclick="calculateCochran()">Hitung Cochran Q</button>
+                                </div>
+                            </div>
+                            
+                            <div id="co-output-section" class="output-container hidden" style="margin-top: 30px;">
+                                <h4 class="output-title">Hasil Uji Cochran Q</h4>
+                                <div class="calculation-steps">
+                                    <!-- Dinamis diisi oleh JS -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Subtab Code -->
+                    <div id="subtab-co-code" class="subtab-content">
+                        <div class="card">
+                            <h3>Implementasi Kode Program</h3>
+                            
+                            <div class="tab-code-container">
+                                <div class="code-header">
+                                    <span class="lang-label">Bahasa R</span>
+                                </div>
+                                <pre><code># 1. Susun data dalam matriks biner
+data_dosen &lt;- matrix(c(
+  0, 0, 0, # Mhs 1
+  0, 0, 1, # Mhs 2
+  0, 1, 0, # Mhs 3
+  0, 1, 0, # Mhs 4
+  1, 1, 0, # Mhs 5
+  1, 1, 0, # Mhs 6
+  1, 1, 0, # Mhs 7
+  1, 1, 0, # Mhs 8
+  1, 1, 1, # Mhs 9
+  1, 1, 1, # Mhs 10
+  1, 1, 1, # Mhs 11
+  1, 1, 1  # Mhs 12
+), nrow = 12, byrow = TRUE)
+colnames(data_dosen) &lt;- c("Dosen_A", "Dosen_B", "Dosen_C")
+
+# 2. Jalankan Uji Cochran Q (membutuhkan package PMCMRplus atau DescTools)
+install.packages("DescTools")
+library(DescTools)
+
+CochranQTest(data_dosen)</code></pre>
+                            </div>
+                            
+                            <div class="tab-code-container" style="margin-top: 20px;">
+                                <div class="code-header">
+                                    <span class="lang-label">Python (statsmodels)</span>
+                                </div>
+                                <pre><code>import pandas as pd
+from statsmodels.stats.contingency_tables import cochrans_q
+
+# 1. Buat DataFrame
+data = {
+    'Dosen_A': [0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1],
+    'Dosen_B': [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    'Dosen_C': [0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1]
+}
+df = pd.DataFrame(data)
+
+# 2. Jalankan Uji Cochran Q
+res = cochrans_q(df)
+print(f"Q-statistic: {res.statistic:.4f}, p-value: {res.pvalue:.4f}")</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- TAB 5: FRIEDMAN -->
+                <section id="tab-friedman" class="tab-pane">
+                    <div class="tab-nav-sub">
+                        <button class="sub-tab-btn active" data-subtab="fr-teori">Teori & Konsep</button>
+                        <button class="sub-tab-btn" data-subtab="fr-kalkulator">Kalkulator Interaktif</button>
+                        <button class="sub-tab-btn" data-subtab="fr-code">Kode R & Python</button>
+                    </div>
+                    
+                    <!-- Subtab Teori -->
+                    <div id="subtab-fr-teori" class="subtab-content active">
+                        <div class="card">
+                            <h3>Pengantar Uji Friedman</h3>
+                            <p>Uji Friedman merupakan alternatif non-parametrik untuk ANOVA dua arah berulang (Two-Way Repeated Measures ANOVA) ketika asumsi normalitas tidak terpenuhi. Uji ini mengevaluasi apakah ada perbedaan yang signifikan antara efek beberapa perlakuan ($k \ge 3$) pada beberapa blok ($b$) sampel berhubungan.</p>
+                            
+                            <h4>Asumsi Uji:</h4>
+                            <ol>
+                                <li>Rancangan penelitian adalah rancangan blok lengkap acak (RCBD), terdiri dari $b$ blok independen berukuran $k$.</li>
+                                <li>Pengamatan di dalam setiap blok dirangking dari terkecil ($1$) hingga terbesar ($k$).</li>
+                                <li>Efek perlakuan konsisten dan tidak berinteraksi dengan efek blok.</li>
+                            </ol>
+                            
+                            <h4>Hipotesis:</h4>
+                            <p>$$H_0: M_1 = M_2 = \dots = M_k \text{ (Efek semua perlakuan adalah identik)}$$</p>
+                            <p>$$H_1: \text{Minimal ada satu perlakuan yang memiliki efek berbeda}$$</p>
+                            
+                            <h4>Statistik Uji:</h4>
+                            <p>$$T = \chi_r^2 = \frac{12}{bk(k+1)} \sum_{j=1}^k R_j^2 - 3b(k+1)$$</p>
+                            <p>Atau dalam format kuadrat deviasi (dari UAS 2025 Nomor 1):</p>
+                            <p>$$T = \frac{12}{bk(k+1)} \sum_{j=1}^k \left[ R_j - \frac{b(k+1)}{2} \right]^2$$</p>
+                            <p>Dimana $b$ adalah jumlah blok (baris), $k$ adalah jumlah perlakuan (kolom), dan $R_j$ adalah jumlah peringkat kolom ke-$j$.</p>
+                            
+                            <h4>Kaidah Keputusan:</h4>
+                            <ul>
+                                <li>Untuk sampel besar ($b > 15$ atau $k > 4$): Tolak $H_0$ jika $T \ge \chi^2_{(1-\alpha, k-1)}$.</li>
+                                <li>Untuk sampel kecil: Gunakan tabel statistik kritis khusus Friedman.</li>
+                            </ul>
+                            
+                            <hr>
+                            
+                            <h3>Uji Lanjut Friedman (Post-Hoc)</h3>
+                            <p>Jika uji Friedman menolak $H_0$, uji perbandingan berpasangan (pairwise comparisons) dapat dilakukan dengan membandingkan selisih absolut peringkat kolom dengan batas perbedaan kritis (Critical Difference):</p>
+                            <p>$$CD = z_{(1 - \alpha/c)} \sqrt{\frac{bk(k+1)}{6}}$$</p>
+                            <p>Dimana $c = \frac{k(k-1)}{2}$ adalah jumlah perbandingan, dan $z$ adalah nilai tabel Z dengan taraf signifikansi terkoreksi Bonferroni.</p>
+                            <p>Tolak kesamaan perlakuan $i$ dan $j$ jika $|R_i - R_j| \ge CD$.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Subtab Kalkulator -->
+                    <div id="subtab-fr-kalkulator" class="subtab-content">
+                        <div class="card">
+                            <h3>Kalkulator Uji Friedman & Post-Hoc</h3>
+                            <p class="help-text">Masukkan data kontinu/ordinal. Ranks akan dihitung secara otomatis dalam baris (blok). Klik "Load Contoh UAS 1" untuk me-load data mobil A, B, C, D dari 12 responden.</p>
+                            
+                            <div class="table-editor-container">
+                                <div class="table-controls">
+                                    <button class="btn btn-secondary btn-sm" onclick="addFriedmanRow()">＋ Tambah Baris (Blok)</button>
+                                    <button class="btn btn-secondary btn-sm" onclick="addFriedmanCol()">＋ Tambah Kolom (Perlakuan)</button>
+                                    <button class="btn btn-secondary btn-sm" onclick="removeFriedmanCol()">－ Hapus Kolom</button>
+                                    <button class="btn btn-secondary btn-sm" onclick="removeFriedmanRow()">－ Hapus Baris</button>
+                                    <button class="btn btn-secondary btn-sm" onclick="loadFriedmanExample1()">Contoh Amilase (3 Metode, 9 Orang)</button>
+                                    <button class="btn btn-secondary btn-sm" onclick="loadFriedmanExample2()">Contoh Mobil UAS 1 (4 Mobil, 12 Responden)</button>
+                                </div>
+                                
+                                <div class="scroll-x">
+                                    <table id="friedman-table" class="table-calc">
+                                        <thead>
+                                            <tr>
+                                                <th>Blok / Responden</th>
+                                                <th>Perlakuan A</th>
+                                                <th>Perlakuan B</th>
+                                                <th>Perlakuan C</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Diisi oleh JS -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                                <div class="calc-actions" style="margin-top: 20px;">
+                                    <div class="select-wrapper">
+                                        <label for="fr-alpha">Taraf Signifikansi (α):</label>
+                                        <select id="fr-alpha" class="form-control-sm">
+                                            <option value="0.01">1% (0.01)</option>
+                                            <option value="0.05" selected>5% (0.05)</option>
+                                            <option value="0.10">10% (0.10)</option>
+                                        </select>
+                                    </div>
+                                    <button class="btn btn-primary" onclick="calculateFriedman()">Hitung Friedman</button>
+                                </div>
+                            </div>
+                            
+                            <div id="fr-output-section" class="output-container hidden" style="margin-top: 30px;">
+                                <h4 class="output-title">Hasil Uji Friedman & Post-Hoc</h4>
+                                <div class="calculation-steps">
+                                    <!-- Dinamis diisi oleh JS -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Subtab Code -->
+                    <div id="subtab-fr-code" class="subtab-content">
+                        <div class="card">
+                            <h3>Implementasi Kode Program</h3>
+                            
+                            <div class="tab-code-container">
+                                <div class="code-header">
+                                    <span class="lang-label">Bahasa R</span>
+                                </div>
+                                <pre><code># 1. Susun data dalam matriks
+data_mobil &lt;- matrix(c(
+  4, 2, 3, 1,
+  2, 4, 2, 3,
+  1, 3, 3, 1,
+  2, 4, 4, 3,
+  1, 2, 4, 5,
+  4, 2, 1, 3,
+  4, 1, 2, 3,
+  4, 1, 2, 3,
+  4, 2, 1, 3,
+  3, 1, 2, 4,
+  4, 1, 3, 2,
+  4, 2, 3, 1
+), nrow = 12, byrow = TRUE)
+colnames(data_mobil) &lt;- c("Mobil_A", "Mobil_B", "Mobil_C", "Mobil_D")
+rownames(data_mobil) &lt;- paste("Resp", 1:12)
+
+# 2. Uji Friedman
+friedman.test(data_mobil)
+
+# 3. Post-Hoc Nemenyi
+install.packages("PMCMRplus")
+library(PMCMRplus)
+
+frdAllPairsNemenyiTest(
+  y = as.vector(data_mobil), 
+  groups = rep(colnames(data_mobil), each=12), 
+  blocks = rep(rownames(data_mobil), times=4)
+)</code></pre>
+                            </div>
+                            
+                            <div class="tab-code-container" style="margin-top: 20px;">
+                                <div class="code-header">
+                                    <span class="lang-label">Python (scipy & scikit-posthocs)</span>
+                                </div>
+                                <pre><code>import scipy.stats as stats
+import scikit_posthocs as sp
+import numpy as np
+
+# 1. Data Mobil (UAS 1)
+data = np.array([
+  [4, 2, 3, 1], [2, 4, 2, 3], [1, 3, 3, 1], [2, 4, 4, 3],
+  [1, 2, 4, 5], [4, 2, 1, 3], [4, 1, 2, 3], [4, 1, 2, 3],
+  [4, 2, 1, 3], [3, 1, 2, 4], [4, 1, 3, 2], [4, 2, 3, 1]
+])
+
+# 2. Friedman Test
+res, p_val = stats.friedmanchisquare(data[:,0], data[:,1], data[:,2], data[:,3])
+print(f"Friedman chi2: {res:.4f}, p-value: {p_val:.4f}")
+
+# 3. Post-hoc Nemenyi
+posthoc = sp.posthoc_nemenyi_friedman(data)
+print("Nemenyi p-value matrix:\n", posthoc)</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- TAB 6: DURBIN -->
+                <section id="tab-durbin" class="tab-pane">
+                    <div class="tab-nav-sub">
+                        <button class="sub-tab-btn active" data-subtab="du-teori">Teori & Konsep</button>
+                        <button class="sub-tab-btn" data-subtab="du-kalkulator">Kalkulator Interaktif</button>
+                        <button class="sub-tab-btn" data-subtab="du-code">Kode R & Python</button>
+                    </div>
+                    
+                    <!-- Subtab Teori -->
+                    <div id="subtab-du-teori" class="subtab-content active">
+                        <div class="card">
+                            <h3>Pengantar Uji Durbin</h3>
+                            <p>Uji Durbin digunakan untuk menganalisis rancangan blok tidak lengkap seimbang (Balanced Incomplete Block Design / BIBD). Uji ini digunakan jika kapasitas suatu blok terbatas ($k \lt t$), sehingga tidak memungkinkan menerapkan seluruh perlakuan ($t$) ke setiap blok ($b$).</p>
+                            
+                            <h4>Karakteristik BIBD:</h4>
+                            <ul>
+                                <li><strong>$t$ (Treatments):</strong> Jumlah perlakuan yang ingin dibandingkan (misal: 7 jenis ban mobil).</li>
+                                <li><strong>$b$ (Blocks):</strong> Jumlah blok atau kelompok penguji (misal: 7 orang pengemudi).</li>
+                                <li><strong>$k$ (Block Size):</strong> Ukuran blok, yaitu batas kapasitas perlakuan yang dapat dicoba di setiap blok ($k \lt t$, misal: 1 mobil hanya muat 4 ban).</li>
+                                <li><strong>$r$ (Replications):</strong> Jumlah pengulangan untuk setiap perlakuan di seluruh blok (misal: tiap jenis ban diuji sebanyak 4 kali).</li>
+                                <li><strong>$\lambda$ (Lambda):</strong> Frekuensi kemunculan bersama setiap pasangan perlakuan dalam blok yang sama.</li>
+                            </ul>
+                            
+                            <div class="glass-box" style="margin-top: 15px; border-left: 4px solid var(--accent-red); padding: 15px; background: rgba(239, 68, 68, 0.03);">
+                                <h5 style="color: var(--accent-red); font-size: 1.05rem; margin-bottom: 8px;">💡 Apa itu $\lambda$ (Lambda) secara mendalam?</h5>
+                                <p>Dalam rancangan acak kelompok lengkap (seperti Uji Friedman), setiap perlakuan diuji bersama di setiap blok. Namun, pada <strong>Uji Durbin (BIBD)</strong>, kapasitas blok terbatas ($k \lt t$). Kita tidak bisa memasukkan semua perlakuan ke satu blok.</p>
+                                <p>Agar perbandingan tetap <strong>seimbang (Balanced)</strong>, setiap pasangan perlakuan (misalnya perlakuan A & B, B & C, dst.) harus dibandingkan secara adil. Oleh karena itu, <strong>setiap pasang perlakuan harus muncul bersama-sama di dalam blok yang sama sebanyak $\lambda$ kali</strong>.</p>
+                                <p>Nilai $\lambda$ ini dihitung dengan rumus:</p>
+                                <p>$$\lambda = \frac{r(k-1)}{t-1}$$</p>
+                                <p><strong>Contoh Kasus Ban Mobil (Proyek Ban):</strong></p>
+                                <p>Kita menguji $t = 7$ jenis ban (A s.d G) dengan $b = 7$ sopir (blok). Tiap mobil hanya bisa memakai $k = 4$ ban sekaligus, dan tiap ban diulang $r = 4$ kali. Nilai $\lambda$ nya adalah:</p>
+                                <p>$$\lambda = \frac{4 \times (4 - 1)}{7 - 1} = \frac{12}{6} = 2$$</p>
+                                <p><strong>Arti Praktis $\lambda = 2$:</strong> Jika kita mengambil dua jenis ban secara acak (misalnya ban A dan ban B), maka ban A dan B tersebut akan dipasang bersama-sama pada mobil yang sama oleh <strong>tepat 2 orang sopir</strong> di seluruh eksperimen. Hal yang sama berlaku untuk semua pasangan ban lainnya. Desain ini memastikan tidak ada pasangan perlakuan yang diistimewakan atau kurang dibandingkan.</p>
+                            </div>
+                            
+                            <p style="margin-top: 20px;">Hubungan matematis antar parameter BIBD:</p>
+                            <p>$$kb = rt$$</p>
+                            <p>$$\lambda(t - 1) = r(k - 1)$$</p>
+                            
+                            <h4>Hipotesis:</h4>
+                            <p>$$H_0: \text{Semua perlakuan memiliki efek yang sama}$$</p>
+                            <p>$$H_1: \text{Setidaknya ada satu perlakuan dengan efek berbeda}$$</p>
+                            
+                            <h4>Statistik Uji Durbin:</h4>
+                            <p>$$T = \frac{12(t-1)}{rt(k-1)(k+1)} \sum_{j=1}^t \left[ R_j - \frac{r(k+1)}{2} \right]^2$$</p>
+                            <p>Dimana $R_j$ adalah jumlah peringkat perlakuan ke-$j$ yang diisi setelah dilakukan perangkingan *di dalam masing-masing blok* dari $1$ sampai $k$.</p>
+                            
+                            <h4>Kaidah Keputusan:</h4>
+                            <p>Tolak $H_0$ jika $T \ge \chi^2_{(1-\alpha, t-1)}$.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Subtab Kalkulator -->
+                    <div id="subtab-du-kalkulator" class="subtab-content">
+                        <div class="card">
+                            <h3>Kalkulator Uji Durbin (BIBD)</h3>
+                            <p class="help-text">Masukkan data untuk rancangan blok tidak lengkap seimbang. Kosongkan sel untuk perlakuan yang tidak muncul dalam blok tersebut (atau beri tanda strip/kosong).<br><strong>⚠️ Catatan Layout:</strong> Kalkulator ini menggunakan format standar: <strong>Baris = Blok</strong> (misal: Hari/Sopir) dan <strong>Kolom = Perlakuan</strong> (misal: Bahan Kimia/Ban). Jika tabel di modul Anda menampilkan bahan kimia sebagai baris dan hari sebagai kolom, Anda hanya perlu memasukkan data kolom di modul menjadi baris di kalkulator ini (ditranspos).<br><strong>📌 Catatan Contoh Ban:</strong> Contoh "Ban Mobil Proyek" menggunakan <strong>data asli nilai ketahanan ban</strong> (bukan peringkat). Kalkulator akan otomatis me-ranking data per blok. Contoh "Toksisitas Kutu" juga menggunakan nilai pengamatan asli (proporsi toksisitas).</p>
+                            
+                            <div class="table-editor-container">
+                                <div class="table-controls">
+                                    <button class="btn btn-secondary btn-sm" onclick="addDurbinRow()">＋ Tambah Baris (Blok)</button>
+                                    <button class="btn btn-secondary btn-sm" onclick="addDurbinCol()">＋ Tambah Kolom (Perlakuan)</button>
+                                    <button class="btn btn-secondary btn-sm" onclick="removeDurbinCol()">－ Hapus Kolom</button>
+                                    <button class="btn btn-secondary btn-sm" onclick="removeDurbinRow()">－ Hapus Baris</button>
+                                    <button class="btn btn-secondary btn-sm" onclick="loadDurbinExample1()">Contoh Toksisitas Kutu (t=7, b=7, k=3, r=3)</button>
+                                    <button class="btn btn-secondary btn-sm" onclick="loadDurbinExample2()">Contoh Ban Mobil Proyek (t=7, b=7, k=4, r=4)</button>
+                                </div>
+                                
+                                <div class="scroll-x">
+                                    <table id="durbin-table" class="table-calc">
+                                        <thead>
+                                            <!-- Diisi oleh JS -->
+                                        </thead>
+                                        <tbody>
+                                            <!-- Diisi oleh JS -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                                <div class="calc-actions" style="margin-top: 20px;">
+                                    <div class="select-wrapper">
+                                        <label for="du-alpha">Taraf Signifikansi (α):</label>
+                                        <select id="du-alpha" class="form-control-sm">
+                                            <option value="0.01">1% (0.01)</option>
+                                            <option value="0.05" selected>5% (0.05)</option>
+                                            <option value="0.10">10% (0.10)</option>
+                                        </select>
+                                    </div>
+                                    <button class="btn btn-primary" onclick="calculateDurbin()">Hitung Durbin</button>
+                                </div>
+                            </div>
+                            
+                            <div id="du-output-section" class="output-container hidden" style="margin-top: 30px;">
+                                <h4 class="output-title">Hasil Uji Durbin</h4>
+                                <div class="calculation-steps">
+                                    <!-- Dinamis diisi oleh JS -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Subtab Code -->
+                    <div id="subtab-du-code" class="subtab-content">
+                        <div class="card">
+                            <h3>Implementasi Kode Program</h3>
+                            
+                            <div class="tab-code-container">
+                                <div class="code-header">
+                                    <span class="lang-label">Bahasa R</span>
+                                </div>
+                                <pre><code># 1. Masukkan data dalam bentuk vektor (long format)
+toksisitas &lt;- c(
+  0.465, 0.343, 0.396,  # Hari 1 (A, B, D)
+  0.602, 0.873, 0.634,  # Hari 2 (A, C, E)
+  0.875, 0.325, 0.426,  # Hari 3 (C, D, G)
+  0.423, 0.987, 0.330,  # Hari 4 (A, F, G)
+  0.652, 0.409, 0.989,  # Hari 5 (B, E, F)
+  0.536, 1.142, 0.309,  # Hari 6 (B, C, G)
+  0.609, 0.417, 0.931   # Hari 7 (D, E, F)
+)
+
+# Faktor perlakuan dan blok
+bahan_kimia &lt;- as.factor(c(
+  "A", "B", "D",
+  "A", "C", "E",
+  "C", "D", "G",
+  "A", "F", "G",
+  "B", "E", "F",
+  "B", "C", "G",
+  "D", "E", "F"
+))
+
+hari &lt;- as.factor(c(
+  rep("Hari_1", 3), rep("Hari_2", 3), rep("Hari_3", 3),
+  rep("Hari_4", 3), rep("Hari_5", 3), rep("Hari_6", 3), rep("Hari_7", 3)
+))
+
+data_eksperimen &lt;- data.frame(hari, bahan_kimia, toksisitas)
+
+# 2. Jalankan Uji Durbin (membutuhkan package PMCMRplus)
+library(PMCMRplus)
+hasil_durbin &lt;- durbinTest(
+  y = data_eksperimen$toksisitas,
+  groups = data_eksperimen$bahan_kimia,
+  blocks = data_eksperimen$hari
+)
+print(hasil_durbin)</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- TAB 7: KOLMOGOROV & CRAMER VON MISES -->
+                <section id="tab-kolmogorov-cramer" class="tab-pane">
+                    <div class="tab-nav-sub">
+                        <button class="sub-tab-btn active" data-subtab="kc-teori">Teori & Konsep</button>
+                        <button class="sub-tab-btn" data-subtab="kc-kalkulator">Kalkulator Interaktif</button>
+                        <button class="sub-tab-btn" data-subtab="kc-code">Kode R & Python</button>
+                    </div>
+                    
+                    <!-- Subtab Teori -->
+                    <div id="subtab-kc-teori" class="subtab-content active">
+                        <div class="card">
+                            <h3>Pengantar Uji Goodness of Fit</h3>
+                            <p>Uji Goodness of Fit digunakan untuk memeriksa apakah fungsi distribusi kumulatif dari sampel data yang diamati ($S(x)$) sesuai dengan fungsi distribusi teoritis tertentu ($F^*(x)$), seperti Distribusi Seragam atau Normal.</p>
+                            
+                            <div class="grid-2col">
+                                <div class="glass-box">
+                                    <h5>1. Uji Kolmogorov-Smirnov (KS)</h5>
+                                    <p>Mengukur jarak vertikal maksimum antara distribusi empiris sampel $S(x)$ dan distribusi teoritis hipotesis $F^*(x)$.</p>
+                                    <p>Statistik uji:</p>
+                                    <p>$$D = \max_{x} |S(x) - F^*(x)|$$</p>
+                                    <p>Secara operasional dihitung dengan mencari nilai terbesar di antara selisih berikut:</p>
+                                    <p>$$D_i^+ = \frac{i}{n} - F^*(x_{(i)})$$</p>
+                                    <p>$$D_i^- = F^*(x_{(i)}) - \frac{i-1}{n}$$</p>
+                                    <p>$$D = \max_{1 \le i \le n} (\max(D_i^+, D_i^-))$$</p>
+                                    <p>Dimana $x_{(i)}$ adalah data terurut.</p>
+                                </div>
+                                
+                                <div class="glass-box">
+                                    <h5>2. Uji Cramér-von Mises (CvM)</h5>
+                                    <p>Merupakan alternatif Kolmogorov-Smirnov yang lebih efisien karena menggunakan seluruh deviasi kuadrat di semua titik data, bukan hanya deviasi maksimum saja.</p>
+                                    <p>Statistik uji:</p>
+                                    <p>$$T = \frac{1}{12n} + \sum_{i=1}^n \left[ F^*(x_{(i)}) - \frac{2i-1}{2n} \right]^2$$</p>
+                                    <p>Dimana $n$ adalah ukuran sampel.</p>
+                                </div>
+                            </div>
+                            
+                            <hr style="margin: 20px 0;">
+                            
+                            <h4>Kasus Uji Lilliefors (Normalitas):</h4>
+                            <p>Jika distribusi hipotesis adalah Distribusi Normal, namun parameter rata-rata ($\mu$) dan standar deviasi ($\sigma$) tidak diketahui dan harus diduga dari sampel ($\bar{X}$ dan $s$), maka uji KS standar menjadi tidak valid (karena terlalu konservatif). Uji penyesuaian ini disebut <strong>Uji Lilliefors</strong>, yang menggunakan tabel nilai kritis yang berbeda.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Subtab Kalkulator -->
+                    <div id="subtab-kc-kalkulator" class="subtab-content">
+                        <div class="card">
+                            <h3>Kalkulator KS & Cramer-von Mises</h3>
+                            <p class="help-text">Masukkan data kuantitatif dipisah dengan koma (contoh: 0.44, 0.81, 0.14, 0.05, 0.93). Pilih distribusi teoritis yang ingin dibandingkan.</p>
+                            
+                            <div class="grid-2col" style="gap: 30px; align-items: start;">
+                                <div>
+                                    <div class="form-group">
+                                        <label for="kc-data">Masukkan Data (Pemisah Koma):</label>
+                                        <textarea id="kc-data" class="form-control" rows="3">0.44, 0.81, 0.14, 0.05, 0.93</textarea>
+                                    </div>
+                                    
+                                    <div class="select-wrapper" style="margin-top: 15px;">
+                                        <label for="kc-dist">Bandingkan dengan Distribusi:</label>
+                                        <select id="kc-dist" class="form-control" onchange="toggleDistParams()">
+                                            <option value="uniform" selected>Distribusi Seragam / Uniform (0, 1)</option>
+                                            <option value="normal-lilliefors">Distribusi Normal (Uji Lilliefors)</option>
+                                            <option value="normal-known">Distribusi Normal (Mean/SD Diketahui)</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div id="normal-params-container" class="hidden" style="margin-top: 15px;">
+                                        <div class="grid-2col" style="gap: 10px;">
+                                            <div>
+                                                <label for="normal-mean">Mean (μ):</label>
+                                                <input type="number" id="normal-mean" class="form-control" value="0">
+                                            </div>
+                                            <div>
+                                                <label for="normal-sd">Std Dev (σ):</label>
+                                                <input type="number" id="normal-sd" class="form-control" value="1" min="0.0001" step="any">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="calc-actions" style="margin-top: 20px;">
+                                        <div class="select-wrapper">
+                                            <label for="kc-alpha">Signifikansi (α):</label>
+                                            <select id="kc-alpha" class="form-control-sm">
+                                                <option value="0.01">1% (0.01)</option>
+                                                <option value="0.05" selected>5% (0.05)</option>
+                                                <option value="0.10">10% (0.10)</option>
+                                            </select>
+                                        </div>
+                                        <button class="btn btn-primary" onclick="calculateGoodnessOfFit()">Hitung Uji Fit</button>
+                                        <button class="btn btn-secondary" onclick="loadKSExample1()">Contoh Seragam (5 data)</button>
+                                        <button class="btn btn-secondary" onclick="loadKSExample2()">Contoh Normal Lilliefors (10 data)</button>
+                                    </div>
+                                </div>
+                                
+                                <div class="glass-box" style="width: 100%;">
+                                    <h5 style="text-align: center; margin-bottom: 15px;">Visualisasi ECDF vs CDF Teoritis</h5>
+                                    <div id="ecdf-plot-container" class="ecdf-plot-placeholder">
+                                        <p style="color: var(--text-muted); font-size: 0.9rem;">Klik tombol "Hitung Uji Fit" untuk melihat plot ECDF.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div id="kc-output-section" class="output-container hidden" style="margin-top: 30px;">
+                                <h4 class="output-title">Hasil Uji Kolmogorov & Cramer-von Mises</h4>
+                                <div class="calculation-steps">
+                                    <!-- Dinamis diisi oleh JS -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Subtab Code -->
+                    <div id="subtab-kc-code" class="subtab-content">
+                        <div class="card">
+                            <h3>Implementasi Kode Program</h3>
+                            
+                            <div class="tab-code-container">
+                                <div class="code-header">
+                                    <span class="lang-label">Bahasa R</span>
+                                </div>
+                                <pre><code># 1. Masukkan data
+data_ks &lt;- c(0.44, 0.81, 0.14, 0.05, 0.93)
+
+# 2. Uji Kolmogorov-Smirnov (Bandingkan dengan Uniform 0-1)
+ks.test(data_ks, "punif", min = 0, max = 1)
+
+# 3. Uji Lilliefors (untuk Normalitas - membuutuhkan package nortest)
+install.packages("nortest")
+library(nortest)
+lillie.test(c(7, 5, 2, 4, 7, 8, 3, 8, 6, 2))
+
+# 4. Uji Cramer-von Mises (membutuhkan package goftest)
+install.packages("goftest")
+library(goftest)
+cvm.test(data_ks, "punif", min = 0, max = 1)</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- TAB 8: KOEFISIEN KORELASI -->
+                <section id="tab-korelasi" class="tab-pane">
+                    <div class="tab-nav-sub">
+                        <button class="sub-tab-btn active" data-subtab="kor-teori">Teori & Konsep</button>
+                        <button class="sub-tab-btn" data-subtab="kor-kalkulator">Kalkulator Interaktif</button>
+                        <button class="sub-tab-btn" data-subtab="kor-code">Kode R & Python</button>
+                    </div>
+                    
+                    <!-- Subtab Teori -->
+                    <div id="subtab-kor-teori" class="subtab-content active">
+                        <div class="card">
+                            <h3>Koefisien Korelasi Non-Parametrik</h3>
+                            <p>Koefisien korelasi digunakan untuk mengukur kekuatan dan arah hubungan asosiasi antara dua peubah acak. Pada statistika non-parametrik, korelasi dihitung menggunakan peringkat (ranks) atau tabel kontingensi (kategori), sehingga bebas dari asumsi normalitas sebaran data.</p>
+                            
+                            <h4>1. Korelasi Peringkat Spearman ($r_s$ atau $\rho$)</h4>
+                            <p>Mengukur keeratan hubungan linier atau monotonik antara dua variabel acak berskala ordinal/interval. Peringkat dihitung secara terpisah untuk peubah acak $X$ dan $Y$.</p>
+                            <p><strong>Rumus Tanpa Ties (Peringkat Kembar):</strong></p>
+                            <p>$$r_s = 1 - \frac{6 \sum d_i^2}{n(n^2 - 1)}$$</p>
+                            <p>Dimana $d_i = R(X_i) - R(Y_i)$ adalah selisih peringkat pasangan ke-$i$, dan $n$ adalah jumlah pasangan pengamatan.</p>
+                            <p><strong>Rumus Dengan Ties:</strong></p>
+                            <p>Jika ada angka kembar, kita berikan peringkat rata-rata (average ranks), dan $r_s$ dihitung sebagai koefisien korelasi Pearson dari peringkat tersebut:</p>
+                            <p>$$r_s = \frac{\sum (R(X_i) - \bar{R}_x)(R(Y_i) - \bar{R}_y)}{\sqrt{\sum (R(X_i) - \bar{R}_x)^2 \sum (R(Y_i) - \bar{R}_y)^2}}$$</p>
+                            <p><strong>Pengujian Signifikansi (n > 30):</strong></p>
+                            <p>Menggunakan pendekatan normal standar dengan statistik uji:</p>
+                            <p>$$Z = r_s \sqrt{n-1}$$</p>
+                            <p>Tolak $H_0: \rho = 0$ jika $|Z| \ge z_{1-\alpha/2}$.</p>
+                            
+                            <hr style="margin: 20px 0; border: none; border-top: 1px solid var(--border-glass);">
+                            
+                            <h4>2. Korelasi Tau Kendall ($\tau$)</h4>
+                            <p>Mengukur kekuatan asosiasi berdasarkan jumlah pasangan pengamatan yang konkordan (searah) dan diskordan (berlawanan arah).</p>
+                            <p>Misalkan terdapat pasangan $(X_i, Y_i)$ and $(X_j, Y_j)$:</p>
+                            <ul>
+                                <li><strong>Konkordan (P):</strong> Jika urutan arahnya sama, yaitu $(X_i \lt X_j \text{ dan } Y_i \lt Y_j)$ atau $(X_i \gt X_j \text{ dan } Y_i \gt Y_j)$.</li>
+                                <li><strong>Diskordan (Q):</strong> Jika urutan arahnya berlawanan, yaitu $(X_i \lt X_j \text{ dan } Y_i \gt Y_j)$ atau $(X_i \gt X_j \text{ dan } Y_i \lt Y_j)$.</li>
+                            </ul>
+                            <p><strong>Rumus Tanpa Ties:</strong></p>
+                            <p>$$\tau = \frac{P - Q}{n(n-1)/2}$$</p>
+                            <p><strong>Rumus Dengan Ties (Kendall's $\tau_b$):</strong></p>
+                            <p>$$\tau_b = \frac{P - Q}{\sqrt{(\frac{n(n-1)}{2} - T_x)(\frac{n(n-1)}{2} - T_y)}}$$</p>
+                            <p>Dimana $T_x = \frac{1}{2} \sum t_i(t_i-1)$ dan $T_y = \frac{1}{2} \sum u_j(u_j-1)$ adalah faktor koreksi ties pada variabel $X$ dan $Y$.</p>
+                            
+                            <hr style="margin: 20px 0; border: none; border-top: 1px solid var(--border-glass);">
+                            
+                            <h4>3. Koefisien Kontingensi ($C_c$)</h4>
+                            <p>Digunakan untuk mengukur keeratan hubungan korelasi data kualitatif/nominal yang disajikan dalam bentuk tabel kontingensi baris $\times$ kolom ($r \times c$).</p>
+                            <p><strong>Uji Chi-Square ($\chi^2$):</strong></p>
+                            <p>$$\chi^2 = \sum_{i=1}^r \sum_{j=1}^c \frac{(O_{ij} - E_{ij})^2}{E_{ij}}$$</p>
+                            <p>Dimana $O_{ij}$ adalah frekuensi pengamatan dan $E_{ij} = \frac{\text{Total Baris}_i \times \text{Total Kolom}_j}{N}$ adalah frekuensi harapan.</p>
+                            <p><strong>Koefisien Kontingensi ($C_c$):</strong></p>
+                            <p>$$C_c = \sqrt{\frac{\chi^2}{\chi^2 + N}}$$</p>
+                            <p>Batas tertinggi nilai $C_c$ adalah $C_{max} = \sqrt{\frac{k-1}{k}}$ dimana $k = \min\{\text{jumlah baris } r, \text{jumlah kolom } c\}$.</p>
+                            <p><strong>Koefisien Korelasi Relatif:</strong></p>
+                            <p>$$r = \frac{C_c}{C_{max}}$$</p>
+                            <p><strong>Interpretasi Hubungan ($r$):</strong></p>
+                            <ul>
+                                <li>$r \lt 0.5$: Hubungan lemah</li>
+                                <li>$0.5 \le r \lt 0.75$: Hubungan cukup kuat</li>
+                                <li>$0.75 \le r \lt 0.90$: Hubungan kuat</li>
+                                <li>$0.90 \le r \lt 1.0$: Hubungan sangat kuat</li>
+                                <li>$r = 1.0$: Hubungan sempurna</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Subtab Kalkulator -->
+                    <div id="subtab-kor-kalkulator" class="subtab-content">
+                        <div class="card">
+                            <h3>Kalkulator Koefisien Korelasi Non-Parametrik</h3>
+                            
+                            <div class="form-group" style="margin-bottom: 20px;">
+                                <label for="kor-type">Pilih Tipe Input Data:</label>
+                                <select id="kor-type" class="form-control" onchange="toggleCorrelationInput()">
+                                    <option value="paired" selected>Data Pasangan Bivariat (Spearman & Kendall's Tau)</option>
+                                    <option value="contingency">Tabel Kontingensi (Koefisien Kontingensi & Kendall's Tau-b/c)</option>
+                                </select>
+                            </div>
+                            
+                            <!-- PAIRED DATA CONTAINER -->
+                            <div id="kor-paired-container">
+                                <p class="help-text">Masukkan data pasangan untuk variabel X dan Y. Anda dapat menambah atau menghapus pasangan baris menggunakan tombol di bawah.</p>
+                                
+                                <div class="table-controls" style="margin-bottom: 15px;">
+                                    <button class="btn btn-secondary btn-sm" onclick="addPairedRow()">＋ Tambah Baris</button>
+                                    <button class="btn btn-secondary btn-sm" onclick="removePairedRow()">－ Hapus Baris</button>
+                                    <button class="btn btn-secondary btn-sm" onclick="loadPairedExample1()">Contoh Rokok Joni-Tono (n=10)</button>
+                                    <button class="btn btn-secondary btn-sm" onclick="loadPairedExample2()">Contoh Ujian Salesman (Ties, n=10)</button>
+                                    <button class="btn btn-secondary btn-sm" onclick="loadPairedExample3()">Contoh Sistolik-Diastolik (n=5)</button>
+                                </div>
+                                
+                                <div class="scroll-x">
+                                    <table id="kor-paired-table" class="table-calc">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Variabel X</th>
+                                                <th>Variabel Y</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Diisi oleh JS -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            
+                            <!-- CONTINGENCY TABLE CONTAINER -->
+                            <div id="kor-contingency-container" class="hidden">
+                                <p class="help-text">Masukkan frekuensi pengamatan ke dalam tabel kontingensi di bawah ini. Anda dapat menambah/menghapus kategori baris dan kolom.</p>
+                                
+                                <div class="table-controls" style="margin-bottom: 15px;">
+                                    <button class="btn btn-secondary btn-sm" onclick="addContingencyRow()">＋ Tambah Baris</button>
+                                    <button class="btn btn-secondary btn-sm" onclick="addContingencyCol()">＋ Tambah Kolom</button>
+                                    <button class="btn btn-secondary btn-sm" onclick="removeContingencyRow()">－ Hapus Baris</button>
+                                    <button class="btn btn-secondary btn-sm" onclick="removeContingencyCol()">－ Hapus Kolom</button>
+                                    <button class="btn btn-secondary btn-sm" onclick="loadContingencyExample1()">Contoh Pendidikan-Protein (3x3)</button>
+                                    <button class="btn btn-secondary btn-sm" onclick="loadContingencyExample2()">Contoh Pendidikan-Daging (2x3)</button>
+                                </div>
+                                
+                                <div class="scroll-x">
+                                    <table id="kor-contingency-table" class="table-calc">
+                                        <thead>
+                                            <!-- Diisi oleh JS -->
+                                        </thead>
+                                        <tbody>
+                                            <!-- Diisi oleh JS -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            
+                            <div class="calc-actions" style="margin-top: 20px;">
+                                <div class="select-wrapper">
+                                    <label for="kor-alpha">Taraf Signifikansi (α):</label>
+                                    <select id="kor-alpha" class="form-control-sm">
+                                        <option value="0.01">1% (0.01)</option>
+                                        <option value="0.05" selected>5% (0.05)</option>
+                                        <option value="0.10">10% (0.10)</option>
+                                    </select>
+                                </div>
+                                <button class="btn btn-primary" onclick="calculateCorrelation()">Hitung Koefisien Korelasi</button>
+                            </div>
+                            
+                            <!-- Output Container -->
+                            <div id="kor-output-section" class="output-container hidden" style="margin-top: 30px;">
+                                <h4 class="output-title">Hasil Analisis Korelasi</h4>
+                                <div class="calculation-steps">
+                                    <!-- Diisi oleh JS -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Subtab Code -->
+                    <div id="subtab-kor-code" class="subtab-content">
+                        <div class="card">
+                            <h3>Implementasi Kode Program</h3>
+                            <p>Berikut adalah cara menghitung koefisien korelasi peringkat Spearman, Kendall's Tau, dan koefisien kontingensi menggunakan R dan Python.</p>
+                            
+                            <div class="tab-code-container">
+                                <div class="code-header">
+                                    <span class="lang-label">Bahasa R</span>
+                                </div>
+                                <pre><code># 1. Korelasi Spearman & Kendall's Tau (Data Paired)
+x &lt;- c(48, 32, 40, 34, 30, 50, 26, 50, 22, 43)
+y &lt;- c(312, 164, 280, 196, 200, 288, 146, 361, 149, 252)
+
+# Hitung rho Spearman
+cor.test(x, y, method = "spearman")
+
+# Hitung tau Kendall
+cor.test(x, y, method = "kendall")
+
+# 2. Koefisien Kontingensi (Data Tabel Kontingensi)
+# Masukkan tabel kontingensi (Contoh 3x3 Pendidikan vs Protein)
+data_mat &lt;- matrix(c(
+  82, 65, 12,
+  59, 112, 24,
+  37, 94, 42
+), nrow = 3, byrow = TRUE)
+
+# Hitung Chi-Square
+chi_res &lt;- chisq.test(data_mat)
+print(chi_res)
+
+# Hitung Cc (Contingency Coefficient)
+n &lt;- sum(data_mat)
+cc &lt;- sqrt(chi_res$statistic / (chi_res$statistic + n))
+cat("Cc =", cc, "\n")
+
+# Hitung Cc Max & Relatif
+k &lt;- min(dim(data_mat))
+cc_max &lt;- sqrt((k - 1) / k)
+cat("Cc Max =", cc_max, "\n")
+cat("Koefisien Korelasi Relatif r =", cc / cc_max, "\n")</code></pre>
+                            </div>
+                            
+                            <div class="tab-code-container" style="margin-top: 20px;">
+                                <div class="code-header">
+                                    <span class="lang-label">Python (scipy & statsmodels)</span>
+                                </div>
+                                <pre><code>import numpy as np
+import scipy.stats as stats
+
+# 1. Korelasi Spearman & Kendall (Data Paired)
+x = [48, 32, 40, 34, 30, 50, 26, 50, 22, 43]
+y = [312, 164, 280, 196, 200, 288, 146, 361, 149, 252]
+
+# Spearman
+rho, p_val_sp = stats.spearmanr(x, y)
+print(f"Spearman rho: {rho:.4f}, p-value: {p_val_sp:.4f}")
+
+# Kendall's Tau
+tau, p_val_kd = stats.kendalltau(x, y)
+print(f"Kendall's tau: {tau:.4f}, p-value: {p_val_kd:.4f}")
+
+# 2. Koefisien Kontingensi
+# Tabel kontingensi
+table = np.array([
+    [82, 65, 12],
+    [59, 112, 24],
+    [37, 94, 42]
+])
+
+# Hitung Chi-Square
+chi2, p_val, dof, expected = stats.chi2_contingency(table, correction=False)
+n = table.sum()
+
+# Hitung Cc
+cc = np.sqrt(chi2 / (chi2 + n))
+k = min(table.shape)
+cc_max = np.sqrt((k - 1) / k)
+r_rel = cc / cc_max
+
+print(f"Chi2: {chi2:.4f}, p-value: {p_val:.4f}")
+print(f"Cc: {cc:.4f}, Cc Max: {cc_max:.4f}, r relatif: {r_rel:.4f}")</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- TAB 9: BANK SOAL & UAS CHEAT SHEET -->
+                <section id="tab-uas-bank" class="tab-pane">
+                    <div class="card">
+                        <h3>Kumpulan Soal Ujian UAS Statistika Non-Parametrik</h3>
+                        <p>Berikut adalah soal-soal UAS resmi tahun-tahun sebelumnya berserta tombol pengerjaan interaktif yang memindahkan data soal langsung ke kalkulator terkait.</p>
+                        
+                        <div class="soal-list">
+                            <!-- Soal 1 -->
+                            <div class="soal-card">
+                                <div class="soal-header">
+                                    <span class="soal-tag uas-tag">UAS 2025 NOMOR 1</span>
+                                    <h4>Tingkat Kesukaan 4 Merk Mobil (Uji Friedman)</h4>
+                                </div>
+                                <p class="soal-body">
+                                    Diketahui penilaian 12 responden terhadap tingkat kesukaan dari 4 merk mobil (A, B, C, D). Nilai diurutkan berdasarkan peringkat kesukaan (1-4).
+                                    <br><strong>Pertanyaan:</strong> 
+                                    (a) Apakah rata-rata penilai masih sama-sama menyukai mobil A, B, C, D? (Taraf signifikansi 5%) 
+                                    (b) Jika menolak $H_0$, mobil mana saja yang memiliki perbedaan tingkat kesukaan?
+                                </p>
+                                <div class="soal-footer">
+                                    <button class="btn btn-secondary btn-sm" onclick="openUAS1InFriedman()">Buka & Hitung di Uji Friedman</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Soal 2 -->
+                            <div class="soal-card">
+                                <div class="soal-header">
+                                    <span class="soal-tag uas-tag">UAS 2025 NOMOR 2</span>
+                                    <h4>Tingkat Kesulitan Soal 3 Dosen (Uji Cochran Q)</h4>
+                                </div>
+                                <p class="soal-body">
+                                    Diketahui penilaian 12 mahasiswa terhadap 3 dosen (A, B, C) dalam membuat soal. Jika 1 menyatakan soal sulit dan 0 menyatakan soal mudah.
+                                    <br><strong>Pertanyaan:</strong> Apakah ketiga dosen (A, B, dan C) sama-sama mudahnya dalam membuat soal? (α = 5%)
+                                </p>
+                                <div class="soal-footer">
+                                    <button class="btn btn-secondary btn-sm" onclick="openUAS2InCochran()">Buka & Hitung di Uji Cochran Q</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Soal 3 -->
+                            <div class="soal-card">
+                                <div class="soal-header">
+                                    <span class="soal-tag proyek-tag">PROYEK BAN MOBIL</span>
+                                    <h4>Uji Ketahanan 7 Jenis Ban Mobil (Uji Durbin - BIBD)</h4>
+                                </div>
+                                <p class="soal-body">
+                                    Uji ketahanan 7 jenis ban mobil ($t=7$) pada 7 pengemudi ($b=7$). Karena keterbatasan kendaraan roda empat, setiap mobil hanya dipasang 4 ban ($k=4$). Setiap ban dipasang secara acak pada 4 mobil ($r=4$) dan setiap pasang ban muncul bersamaan di 2 pengemudi ($\lambda=2$).
+                                    <br><strong>Pertanyaan:</strong> Apakah hasilnya menunjukkan perbedaan yang signifikan dalam hal ketahanan ban?
+                                </p>
+                                <div class="soal-footer">
+                                    <button class="btn btn-secondary btn-sm" onclick="openProyekInDurbin()">Buka & Hitung di Uji Durbin</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+            </div>
+        </main>
+    </div>
+</body>
+</html>
