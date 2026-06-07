@@ -594,6 +594,8 @@ function calculateKruskalWallis() {
         // Variance for Dunn
         const var_dunn = (N * (N + 1)) / 12 - sum_t3_t / (12 * (N - 1));
         
+        const sigDunn = [];
+        const sigConover = [];
         for (let i = 0; i < k; i++) {
             for (let j = i + 1; j < k; j++) {
                 const gA = groupsData[i];
@@ -605,12 +607,18 @@ function calculateKruskalWallis() {
                 const z_stat = diff / se_dunn;
                 const p_val_dunn = 2 * (1 - normalCDF(z_stat));
                 const is_diff_dunn = z_stat >= z_crit_bonf;
+                if (is_diff_dunn) {
+                    sigDunn.push(`K${gA.index} vs K${gB.index}`);
+                }
                 
                 // 2. Conover-Iman
                 const se_conover = Math.sqrt(s2 * ((N - 1 - Hc) / (N - k)) * (1 / gA.nj + 1 / gB.nj));
                 const t_stat = diff / se_conover;
                 const p_val_conover = 2 * (1 - studentTCDF(t_stat, N - k));
                 const is_diff_conover = t_stat >= t_crit_bonf;
+                if (is_diff_conover) {
+                    sigConover.push(`K${gA.index} vs K${gB.index}`);
+                }
                 
                 postHocRows += `
                     <tr>
@@ -630,6 +638,19 @@ function calculateKruskalWallis() {
                 `;
             }
         }
+        
+        const dunnText = sigDunn.length > 0 ? `<strong>${sigDunn.join(', ')}</strong>` : 'tidak ada pasangan kelompok yang berbeda nyata';
+        const conoverText = sigConover.length > 0 ? `<strong>${sigConover.join(', ')}</strong>` : 'tidak ada pasangan kelompok yang berbeda nyata';
+        
+        const postHocConclusion = `
+            <div style="margin-top: 15px;">
+                <strong>Jadi,</strong> berdasarkan hasil uji perbandingan berpasangan (post-hoc) dengan koreksi Bonferroni:
+                <ul>
+                    <li>Pada <strong>Uji Dunn</strong>: kelompok yang berbeda secara signifikan adalah ${dunnText}.</li>
+                    <li>Pada <strong>Uji Conover-Iman</strong>: kelompok yang berbeda secara signifikan adalah ${conoverText}.</li>
+                </ul>
+            </div>
+        `;
         
         html += `
             <div class="glass-box">
@@ -657,6 +678,7 @@ function calculateKruskalWallis() {
                         ${postHocRows}
                     </tbody>
                 </table>
+                ${postHocConclusion}
                 <br>
                 <p><em>Catatan: "Berbeda" berarti terdapat perbedaan median/lokasi yang signifikan secara statistik antara kedua kelompok pada tingkat kepercayaan ${(1 - alpha)*100}%.</em></p>
             </div>
@@ -1112,6 +1134,7 @@ function calculateCochran() {
         let postHocRows = "";
         const numComparisons = cochranCols * (cochranCols - 1) / 2;
         const bonfAlpha = alpha / numComparisons;
+        const sigCochran = [];
         
         for (let j1 = 0; j1 < cochranCols; j1++) {
             for (let j2 = j1 + 1; j2 < cochranCols; j2++) {
@@ -1138,6 +1161,9 @@ function calculateCochran() {
                 }
                 
                 const isDiff = p_val <= bonfAlpha;
+                if (isDiff) {
+                    sigCochran.push(`Perlakuan ${colName1} vs ${colName2}`);
+                }
                 
                 postHocRows += `
                     <tr>
@@ -1149,6 +1175,13 @@ function calculateCochran() {
                     </tr>
                 `;
             }
+        }
+        
+        let postHocConclusion = "";
+        if (sigCochran.length > 0) {
+            postHocConclusion = `<p style="margin-top: 15px;"><strong>Jadi,</strong> berdasarkan hasil uji lanjut McNemar berpasangan dengan koreksi Bonferroni, terdapat perbedaan proporsi sukses yang signifikan secara statistik antara pasangan: <strong>${sigCochran.join(', ')}</strong>.</p>`;
+        } else {
+            postHocConclusion = `<p style="margin-top: 15px;"><strong>Jadi,</strong> berdasarkan hasil uji lanjut McNemar berpasangan dengan koreksi Bonferroni, tidak ada pasangan perlakuan yang memiliki perbedaan proporsi sukses secara signifikan.</p>`;
         }
         
         html += `
@@ -1170,6 +1203,7 @@ function calculateCochran() {
                         ${postHocRows}
                     </tbody>
                 </table>
+                ${postHocConclusion}
                 <br>
                 <p><em>Catatan: "Berbeda" menunjukkan terdapat perbedaan proporsi yang signifikan setelah koreksi tingkat kesalahan tipe I.</em></p>
             </div>
@@ -1549,13 +1583,18 @@ function calculateFriedman() {
         const CD = z_val * SE;
         
         let postHocRows = "";
+        const sigPairs = [];
         for (let i = 0; i < k; i++) {
             for (let j = i + 1; j < k; j++) {
                 const diff = Math.abs(Rj[i] - Rj[j]);
                 const isSigPair = diff >= CD;
+                const pairLabel = `Perlakuan ${String.fromCharCode(64 + i + 1)} vs ${String.fromCharCode(64 + j + 1)}`;
+                if (isSigPair) {
+                    sigPairs.push(pairLabel);
+                }
                 postHocRows += `
                     <tr>
-                        <td><strong>Perlakuan ${String.fromCharCode(64 + i + 1)} vs ${String.fromCharCode(64 + j + 1)}</strong></td>
+                        <td><strong>${pairLabel}</strong></td>
                         <td>$|R_{${String.fromCharCode(64 + i + 1)}} - R_{${String.fromCharCode(64 + j + 1)}}| = |${Rj[i].toFixed(1)} - ${Rj[j].toFixed(1)}| = ${diff.toFixed(1)}$</td>
                         <td>${diff >= CD ? '$\\ge$' : '$<$'}</td>
                         <td>${CD.toFixed(3)}</td>
@@ -1563,6 +1602,13 @@ function calculateFriedman() {
                     </tr>
                 `;
             }
+        }
+        
+        let postHocConclusion = "";
+        if (sigPairs.length > 0) {
+            postHocConclusion = `<p style="margin-top: 15px;"><strong>Jadi,</strong> berdasarkan uji lanjut (post-hoc) dengan batas kritis $CD = ${CD.toFixed(3)}$, terdapat perbedaan efek yang signifikan secara statistik antara pasangan: <strong>${sigPairs.join(', ')}</strong>.</p>`;
+        } else {
+            postHocConclusion = `<p style="margin-top: 15px;"><strong>Jadi,</strong> berdasarkan uji lanjut (post-hoc) dengan batas kritis $CD = ${CD.toFixed(3)}$, tidak ada pasangan perlakuan yang memiliki perbedaan efek secara signifikan setelah koreksi Bonferroni.</p>`;
         }
         
         html += `
@@ -1588,6 +1634,7 @@ function calculateFriedman() {
                         ${postHocRows}
                     </tbody>
                 </table>
+                ${postHocConclusion}
             </div>
         `;
     }
