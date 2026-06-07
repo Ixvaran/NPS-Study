@@ -563,8 +563,8 @@ function calculateKruskalWallis() {
     
     // Step 7: Kesimpulan
     const kesimpulanText = isSignificant 
-        ? `Pada taraf signifikansi ${alpha * 100}%, terdapat cukup bukti untuk menolak $H_0$. Artinya, terdapat perbedaan rata-rata/median hasil yang signifikan di antara kelompok-kelompok tersebut.`
-        : `Pada taraf signifikansi ${alpha * 100}%, tidak terdapat cukup bukti untuk menolak $H_0$. Artinya, rata-rata/median hasil di antara kelompok-kelompok tersebut secara statistik dianggap sama (perbedaan yang terjadi murni karena variasi acak sampel).`;
+        ? `Pada taraf signifikansi ${alpha * 100}%, terdapat cukup bukti untuk menolak $H_0$. Artinya, terdapat perbedaan rata-rata/median hasil yang signifikan di antara kelompok-kelompok tersebut.<br><br><strong>Jadi,</strong> karena kita menolak $H_0$, terdapat perbedaan peringkat median yang signifikan secara statistik di antara kelompok-kelompok yang diuji.`
+        : `Pada taraf signifikansi ${alpha * 100}%, tidak terdapat cukup bukti untuk menolak $H_0$. Artinya, rata-rata/median hasil di antara kelompok-kelompok tersebut secara statistik dianggap sama (perbedaan yang terjadi murni karena variasi acak sampel).<br><br><strong>Jadi,</strong> karena kita gagal menolak $H_0$, secara statistik tidak terdapat perbedaan median peringkat yang nyata (signifikan) di antara kelompok-kelompok yang diuji.`;
         
     html += makeStep("Langkah 7: Kesimpulan", kesimpulanText);
     
@@ -759,8 +759,8 @@ function calculateMcNemar() {
         `);
         
         const kesimpulan = isSigCorr 
-            ? `Pada taraf signifikansi ${alpha*100}%, terdapat cukup bukti untuk menolak $H_0$. Artinya, terdapat perubahan proporsi yang signifikan akibat perlakuan tersebut.`
-            : `Pada taraf signifikansi ${alpha*100}%, tidak terdapat cukup bukti untuk menolak $H_0$. Artinya, perlakuan secara statistik dianggap tidak memberikan efek perubahan yang signifikan.`;
+            ? `Pada taraf signifikansi ${alpha*100}%, terdapat cukup bukti untuk menolak $H_0$. Artinya, terdapat perubahan proporsi yang signifikan akibat perlakuan tersebut.<br><br><strong>Jadi,</strong> karena kita menolak $H_0$, terdapat perubahan proporsi/efek yang nyata (signifikan) akibat pemberian perlakuan tersebut.`
+            : `Pada taraf signifikansi ${alpha*100}%, tidak terdapat cukup bukti untuk menolak $H_0$. Artinya, perlakuan secara statistik dianggap tidak memberikan efek perubahan yang signifikan.<br><br><strong>Jadi,</strong> karena kita gagal menolak $H_0$, tidak terdapat perubahan proporsi/efek yang nyata (signifikan) akibat pemberian perlakuan tersebut.`;
         
         html += makeStep("Langkah 7: Kesimpulan", kesimpulan);
         
@@ -802,8 +802,8 @@ function calculateMcNemar() {
         `);
         
         const kesimpulan = isSig 
-            ? `Pada taraf signifikansi ${alpha*100}%, terdapat perbedaan proporsi yang signifikan (Tolak $H_0$).`
-            : `Pada taraf signifikansi ${alpha*100}%, tidak terdapat perbedaan proporsi yang signifikan (Gagal Tolak $H_0$).`;
+            ? `Pada taraf signifikansi ${alpha*100}%, terdapat perbedaan proporsi yang signifikan (Tolak $H_0$).<br><br><strong>Jadi,</strong> karena kita menolak $H_0$, terdapat perbedaan proporsi/efek yang nyata (signifikan) akibat pemberian perlakuan tersebut.`
+            : `Pada taraf signifikansi ${alpha*100}%, tidak terdapat perbedaan proporsi yang signifikan (Gagal Tolak $H_0$).<br><br><strong>Jadi,</strong> karena kita gagal menolak $H_0$, tidak terdapat perbedaan proporsi/efek yang nyata (signifikan) akibat pemberian perlakuan tersebut.`;
             
         html += makeStep("Langkah 7: Kesimpulan", kesimpulan);
     }
@@ -1097,8 +1097,8 @@ function calculateCochran() {
     
     // Step 7: Kesimpulan
     const kesimpulanText = isSignificant
-        ? `Pada taraf signifikansi ${alpha * 100}%, terdapat cukup bukti untuk menolak $H_0$. Artinya, minimal ada satu perlakuan yang memiliki tingkat efektivitas/kesulitan yang berbeda secara signifikan.`
-        : `Pada taraf signifikansi ${alpha * 100}%, tidak terdapat cukup bukti untuk menolak $H_0$. Artinya, semua perlakuan secara statistik dianggap memberikan tingkat efektivitas/kesulitan yang sama.`;
+        ? `Pada taraf signifikansi ${alpha * 100}%, terdapat cukup bukti untuk menolak $H_0$. Artinya, minimal ada satu perlakuan yang memiliki tingkat efektivitas/kesulitan yang berbeda secara signifikan.<br><br><strong>Jadi,</strong> karena kita menolak $H_0$, terdapat perbedaan efektivitas/proporsi sukses yang nyata (signifikan) di antara perlakuan-perlakuan yang diuji.`
+        : `Pada taraf signifikansi ${alpha * 100}%, tidak terdapat cukup bukti untuk menolak $H_0$. Artinya, semua perlakuan secara statistik dianggap memberikan tingkat efektivitas/kesulitan yang sama.<br><br><strong>Jadi,</strong> karena kita gagal menolak $H_0$, secara statistik semua perlakuan dianggap memberikan tingkat efektivitas/proporsi sukses yang sama (tidak berbeda nyata).`;
         
     html += makeStep("Langkah 7: Kesimpulan", kesimpulanText);
     
@@ -1530,8 +1530,8 @@ function calculateFriedman() {
     
     // Step 7: Kesimpulan
     const kesimpulanText = isSignificant
-        ? `Pada taraf signifikansi ${alpha * 100}%, terdapat cukup bukti untuk menolak $H_0$. Artinya, terdapat perbedaan efek perlakuan yang signifikan secara statistik di antara kelompok-kelompok tersebut.`
-        : `Pada taraf signifikansi ${alpha * 100}%, tidak terdapat cukup bukti untuk menolak $H_0$. Artinya, perlakuan-perlakuan tersebut secara statistik dianggap memberikan efek yang sama.`;
+        ? `Pada taraf signifikansi ${alpha * 100}%, terdapat cukup bukti untuk menolak $H_0$. Artinya, terdapat perbedaan efek perlakuan yang signifikan secara statistik di antara kelompok-kelompok tersebut.<br><br><strong>Jadi,</strong> karena kita menolak $H_0$, terdapat perbedaan efek/peringkat respon yang nyata (signifikan) di antara perlakuan-perlakuan yang diuji.`
+        : `Pada taraf signifikansi ${alpha * 100}%, tidak terdapat cukup bukti untuk menolak $H_0$. Artinya, perlakuan-perlakuan tersebut secara statistik dianggap memberikan efek yang sama.<br><br><strong>Jadi,</strong> karena kita gagal menolak $H_0$, secara statistik semua perlakuan dianggap memberikan efek/peringkat respon yang sama (tidak berbeda nyata).`;
         
     html += makeStep("Langkah 7: Kesimpulan", kesimpulanText);
     
@@ -2047,8 +2047,8 @@ function calculateDurbin() {
     
     // Step 7: Kesimpulan
     const kesimpulanText = isSignificant
-        ? `Pada taraf signifikansi ${alpha * 100}%, terdapat cukup bukti untuk menolak $H_0$. Artinya, terdapat perbedaan efek perlakuan yang signifikan secara statistik (misal: kualitas ban atau keampuhan bahan kimia berbeda nyata).`
-        : `Pada taraf signifikansi ${alpha * 100}%, tidak terdapat cukup bukti untuk menolak $H_0$. Artinya, secara statistik semua perlakuan dianggap memberikan efek yang sama.`
+        ? `Pada taraf signifikansi ${alpha * 100}%, terdapat cukup bukti untuk menolak $H_0$. Artinya, terdapat perbedaan efek perlakuan yang signifikan secara statistik (misal: kualitas ban atau keampuhan bahan kimia berbeda nyata).<br><br><strong>Jadi,</strong> karena kita menolak $H_0$, terdapat perbedaan efek/peringkat respon yang nyata (signifikan) di antara perlakuan-perlakuan BIBD yang diuji.`
+        : `Pada taraf signifikansi ${alpha * 100}%, tidak terdapat cukup bukti untuk menolak $H_0$. Artinya, secara statistik semua perlakuan dianggap memberikan efek yang sama.<br><br><strong>Jadi,</strong> karena kita gagal menolak $H_0$, secara statistik semua perlakuan dianggap memberikan efek/peringkat respon yang sama (tidak berbeda nyata).`;
         
     html += makeStep("Langkah 7: Kesimpulan", kesimpulanText);
     
@@ -2392,15 +2392,15 @@ function calculateGoodnessOfFit() {
     
     // Step 7: Kesimpulan
     const ks_conclusion = ks_rejected
-        ? `Berdasarkan uji Kolmogorov-Smirnov, data <strong>TIDAK MENGIKUTI</strong> distribusi teoritis ${distLabel} (terdapat perbedaan signifikan).`
-        : `Berdasarkan uji Kolmogorov-Smirnov, data <strong>MENGIKUTI</strong> distribusi teoritis ${distLabel} (tidak terdapat perbedaan signifikan).`;
+        ? `Berdasarkan uji Kolmogorov-Smirnov, data <strong>TIDAK MENGIKUTI</strong> distribusi teoritis ${distLabel} (terdapat perbedaan signifikan).<br><strong>Jadi,</strong> karena uji KS menolak $H_0$, disimpulkan bahwa data secara signifikan tidak mengikuti distribusi teoritis.`
+        : `Berdasarkan uji Kolmogorov-Smirnov, data <strong>MENGIKUTI</strong> distribusi teoritis ${distLabel} (tidak terdapat perbedaan signifikan).<br><strong>Jadi,</strong> karena uji KS gagal menolak $H_0$, disimpulkan bahwa data secara statistik mengikuti distribusi teoritis.`;
         
     const cvm_conclusion = cvm_rejected
-        ? `Berdasarkan uji Cramér-von Mises, data <strong>TIDAK MENGIKUTI</strong> distribusi teoritis ${distLabel}.`
-        : `Berdasarkan uji Cramér-von Mises, data <strong>MENGIKUTI</strong> distribusi teoritis ${distLabel}.`;
+        ? `Berdasarkan uji Cramér-von Mises, data <strong>TIDAK MENGIKUTI</strong> distribusi teoritis ${distLabel}.<br><strong>Jadi,</strong> karena uji CvM menolak $H_0$, disimpulkan bahwa data secara signifikan tidak mengikuti distribusi teoritis.`
+        : `Berdasarkan uji Cramér-von Mises, data <strong>MENGIKUTI</strong> distribusi teoritis ${distLabel}.<br><strong>Jadi,</strong> karena uji CvM gagal menolak $H_0$, disimpulkan bahwa data secara statistik mengikuti distribusi teoritis.`;
         
     html += makeStep("Langkah 7: Kesimpulan Akhir", `
-        ${ks_conclusion}<br>
+        ${ks_conclusion}<br><br>
         ${cvm_conclusion}
     `);
     
@@ -3178,6 +3178,11 @@ function calculateCorrelation() {
             $$\\tau_b = \\frac{${S}}{\\sqrt{(${n*(n-1)/2} - ${Tx})(${n*(n-1)/2} - ${Ty})}} = ${tau_b.toFixed(4)}$$
         `);
         
+        html += makeStep("Langkah 4: Kesimpulan Akhir", `
+            <strong>Jadi,</strong> dari hasil perhitungan diperoleh koefisien korelasi peringkat Spearman $r_s = ${rs.toFixed(4)}$ dan koefisien korelasi Tau Kendall $\\tau = ${tau_b.toFixed(4)}$.
+            Berdasarkan pengujian signifikansi korelasi Spearman pada tingkat signifikansi ${alpha*100}%, hubungan/korelasi antara kedua peubah tersebut bersifat <strong>${isSig ? 'signifikan secara statistik' : 'tidak signifikan secara statistik'}</strong>.
+        `);
+        
     } else {
         const inputs = document.querySelectorAll('.kor-cont-cell');
         const matrix = Array(contingencyRows).fill(0).map(() => Array(contingencyCols).fill(0));
@@ -3350,6 +3355,11 @@ function calculateCorrelation() {
             <br>
             <strong>Koefisien Asosiasi Kendall's $\\tau_b$:</strong><br>
             $$\\tau_b = \\frac{S}{\\sqrt{(\\frac{N(N-1)}{2} - T_x)(\\frac{N(N-1)}{2} - T_y)}} = ${tau_b.toFixed(4)}$$
+        `);
+        
+        html += makeStep("Langkah 5: Kesimpulan Akhir", `
+            <strong>Jadi,</strong> karena $\\chi^2_{hitung} = ${chi2.toFixed(4)}$ ${isSignificant ? '\\ge' : '<'} $\\chi^2_{table} = ${critVal.toFixed(3)}$, kita <strong>${isSignificant ? 'menolak' : 'gagal menolak'} $H_0$</strong>.
+            Hal ini menyimpulkan bahwa terdapat hubungan yang <strong>${isSignificant ? 'signifikan (dependen)' : 'tidak signifikan (independen)'}</strong> antara kedua peubah kategori tersebut dengan keeratan hubungan berkategori <strong>"${interpretText}"</strong> ($r = ${r_rel.toFixed(4)}$) dan koefisien asosiasi Kendall's $\\tau_b = ${tau_b.toFixed(4)}$.
         `);
     }
     
